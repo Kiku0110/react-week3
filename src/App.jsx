@@ -165,7 +165,10 @@ function App() {
       document.cookie = `hexToken=${token};expires=${new Date(expired)};`;
       // 將 Token 設定到 axios 的預設 Header
       axios.defaults.headers.common['Authorization'] = token;
-
+      Swal.fire({
+          text: "登入成功！",
+          icon: "success"
+        });
       getProducts(); //取得產品列表
       setIsAuth(true); //登入成功畫面為 true
     }catch(error){
@@ -184,11 +187,6 @@ function App() {
       .find((row) => row.startsWith("hexToken="))
       ?.split("=")[1]; // 讀取 Cookie
     
-    // 有取得 Token 才將 Token 設定到 Header 上
-    if(token){
-      axios.defaults.headers.common['Authorization'] = token;
-    }
-
     //建立 Modal methods
     productModalRef.current = new bootstrap.Modal('#productModal', {
       keyboard: false
@@ -199,17 +197,26 @@ function App() {
       try {
         // eslint-disable-next-line no-unused-vars
         const response = await axios.post(`${API_BASE}/api/user/check`)
+        Swal.fire({
+          text: "重新登入成功！",
+          icon: "success"
+        });
         setIsAuth(true);
         getProducts();
       } catch (error) {
         Swal.fire({
-          text: `${error.response.data.message}`,
+          text: `${error.response?.data.message}`,
           icon: "error"
         });
       }
     };
 
-    checkLogin();
+    // 有取得 Token 才將 Token 設定到 Header 上
+    if(token){
+      axios.defaults.headers.common['Authorization'] = token;
+      checkLogin();
+    }
+    
   }, [])
 
   const openModal = (type, product) =>{
