@@ -239,11 +239,11 @@ function App() {
         <h1 className="text-white">請先登入</h1>
         <form className="form-floating" onSubmit={(e)=>onSubmit(e)}>
           <div className="form-floating mb-3">
-            <input type="email" className="form-control" name="username" placeholder="name@example.com" value={formData.username} onChange={(e)=>handleInputChange(e)} />
+            <input type="email" className="form-control" name="username" id="username" placeholder="name@example.com" value={formData.username} onChange={(e)=>handleInputChange(e)} />
             <label htmlFor="username">Email address</label>
           </div>
           <div className="form-floating">
-            <input type="password" className="form-control" name="password" placeholder="Password" value={formData.password} onChange={(e)=>handleInputChange(e)} />
+            <input type="password" className="form-control" name="password" id="password" placeholder="Password" value={formData.password} onChange={(e)=>handleInputChange(e)} />
             <label htmlFor="password">Password</label>
           </div>
           <button type="submit" className="btn btn-dark w-100 mt-3">登入</button>
